@@ -8,8 +8,8 @@ $error = NULL;
 
 session_start();
 
-$consumer_key = 'U65NSjk1IEgDJGCXjp1og';
-$consumer_secret = 'fYcqAxAsa57z8V8OjZ2gJPikrZffodFCZ7OoaR74ug';
+$consumer_key = 'sQLeHxWURiTwcVepSyZg';
+$consumer_secret = 'OUcwILc5DntKPSlgQHjdfMZgzVX4mIlT1sCLCVo';
 
 if (isset ($_GET['logout'])) {
 	setcookie('oauth_token', '', -3600);
