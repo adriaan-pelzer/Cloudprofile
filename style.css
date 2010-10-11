@@ -47,7 +47,7 @@ form {
     border-bottom: 1px solid #000000;
 }
 
-#text {
+#email, #name {
     display: block;
     margin: 10px auto;
     width: 298px;
@@ -71,7 +71,7 @@ form {
     z-index: 0;
 }
 
-#button {
+#register {
     position: relative;
     top: -20px;
     width: 298px;
