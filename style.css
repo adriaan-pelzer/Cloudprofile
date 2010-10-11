@@ -95,6 +95,8 @@ ul {
 }
 
 footer {
+    margin-left: auto;
+    margin-right: auto;
     margin-top: 5px;
 }
 
@@ -113,5 +115,5 @@ footer {
 
 p {
     margin-top: 20px;
-    font-size: 0.5em;
+    font-size: 0.7em;
 }
