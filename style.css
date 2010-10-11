@@ -4,7 +4,7 @@
 }
 
 a {
-    color: #80c2d0;
+    color: #0095c3;
     text-decoration: none;
 }
 
@@ -21,13 +21,13 @@ body {
 header {
     color: #ffffff;
     /*font-size: 2em;*/
-    background: #80c2d0;
+    background: #0095c3;
     display: block;
 }
 
 h1 {
     color: #ffffff;
-    background: #80c2d0;
+    background: #0095c3;
     padding: 10px;
     margin-bottom: 20px;
     text-align: center;
