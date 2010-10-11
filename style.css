@@ -91,7 +91,7 @@ ul {
 }
 
 .footer_link, .footer_seperator, #footer_copyright {
-    font-size: 0.8em;
+    font-size: 0.5em;
 }
 
 footer {
@@ -113,4 +113,5 @@ footer {
 
 p {
     margin-top: 20px;
+    font-size: 0.5em;
 }
