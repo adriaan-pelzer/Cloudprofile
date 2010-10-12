@@ -18,12 +18,12 @@ function process_key_value_set ($token, $value_id) {
             $return["error"] = "Cannot check if value '".$value."' exists: ".$value_object->error;
             return ($return);
         }
-    } else {
+    /*} else {
         if ($value_object->get_aid() != $token->get_aid()) {
             $return["code"] = -5;
             $return["error"] = "Value account id did not match the one provided";
             return ($return);
-        }
+        }*/
     }
 
     $key_object = new Key ($value_object->get_kid());
