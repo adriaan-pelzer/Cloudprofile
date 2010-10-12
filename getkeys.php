@@ -107,10 +107,8 @@ $i = 0;
 $values = ($values_table->retrieve (($show_all?array ('aid'=>$account->get_id()):'1')));
 
 foreach ($values as $value) {
-    print_r ($value);
-    echo "<br />";
     $returnval = process_key_value_set ($token, $value["id"]);
-    $return["keys"][$returnval["key"]] = $returnval;
+    array_push ($return["keys"], $returnval);
 }
 
 ret_and_exit ($return);
