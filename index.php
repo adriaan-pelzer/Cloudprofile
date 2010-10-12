@@ -44,7 +44,7 @@ include "header.php";
             
             <p>
                 OMNII allows you to create a profile for each user, using any existing fields or register new ones you may need. Users can then authenticate & edit their profiles - through you - using Twitter.
-                You wil be able to read data created by other services too, though.
+                You will be able to read data created by other services too, though.
             </p>
             
             <p>
