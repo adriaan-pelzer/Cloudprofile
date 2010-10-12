@@ -55,6 +55,10 @@ class Token extends dbTableEntry {
         return $this->get_entry_value ('sid');
     }
 
+    function set_sid ($sid) {
+        return $this->set_entry_value ('sid', $sid);
+    }
+
     function get_token () {
         return $this->get_entry_value ('token');
     }
