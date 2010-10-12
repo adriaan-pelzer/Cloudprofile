@@ -31,11 +31,18 @@ if (isset ($_POST['register'])) {
 include "header.php";
 ?>
         <section id="content">
+            
             <p>
-                When you build Twitter Applications, OMNII allows you to create a profile for each user, using any fields you may need. Once you have created and populated a field for a user, the user will only be able to edit it through you. You wil be able to read data created by other services too, though.
+                Do what you do best and link to the rest. Using Twitter authentication as a basis, OMNII aims to be an open platform for sharing user profile information between web services, putting the user in control. <a href="about.php">Read more</a>.
             </p>
+            
             <p>
-                Submit your email address and an application name below to register an application. Authentication details will then be emailed to the email address you provide.
+                OMNII allows you to create a profile for each user, using any existing fields or register new ones you may need. Users can then authenticate & edit their profiles - through you - using Twitter.
+                You wil be able to read data created by other services too, though.
+            </p>
+            
+            <p>
+                Submit your email address and an application name below to register an application. Authentication details will then be emailed to you.
             </p>
 <?php
 if (isset ($error["success"])) {
