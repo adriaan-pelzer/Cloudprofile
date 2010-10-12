@@ -53,7 +53,7 @@ include "header.php";
 <?php
 if (isset ($error["success"])) {
 ?>
-            <p><?php echo $error["success"]; ?></p>
+            <div class="error"><?php echo $error["success"]; ?></div>
 <?php
 } else {
     if (isset ($error["general"])) {
