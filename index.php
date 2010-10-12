@@ -19,9 +19,9 @@ if (isset ($_POST['register'])) {
     }
 
     if (sizeof ($error) == 0) {
-        echo urlencode("http://omnii.wewillraakyou.com/addservice.php?email=".$_POST['email']."&name=".$_POST['name']);
-        die();
-        $return_arr = call_api (urlencode("http://omnii.wewillraakyou.com/addservice.php?email=".$_POST['email']."&name=".$_POST['name']));
+        //echo urlencode("http://omnii.wewillraakyou.com/addservice.php?email=".$_POST['email']."&name=".$_POST['name']);
+        //die();
+        $return_arr = call_api (str_replace (" ", "+", "http://omnii.wewillraakyou.com/addservice.php?email=".$_POST['email']."&name=".$_POST['name']));
         if ($return_arr->code != 0) {
             $error["general"] = $return_arr->error;
         } else {
