@@ -34,7 +34,16 @@ function process_key_value_set ($token, $value_id) {
         return ($return);
     }
 
+    $account_object = new Account ($value_object->get_aid());
+
+    if ($account_object->error) {
+        $return["code"] = -6;
+        $return["error"] = $account_object->error;
+        return ($return);
+    }
+
     $return["code"] = 0;
+    $return["userid"] = $account_object->get_uid();
     //$return["kid"] = $key_object->get_id();
     //$return["vid"] = $value_object->get_id();
     $return["key"] = $key_object->get_key();
