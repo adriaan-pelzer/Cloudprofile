@@ -9,7 +9,11 @@ function call_api ($url) {
 
 $error = array();
 
-if (isset ($_POST['register'])) {
+if (isset ($_GET['error'])) {
+    $error["general"] = $_GET["error"];
+} else if (isset ($_GET['success'])) {
+    $error["success"] = $_GET["success"];
+} else if (isset ($_POST['register'])) {
     if (!isset ($_POST['email']) || ($_POST['email'] == "")) {
         $error["email"] = "Please enter an email address";
     }

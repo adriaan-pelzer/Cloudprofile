@@ -2,10 +2,15 @@
 include 'libs/service.class.php';
 
 function ret_and_exit ($return) {
-    header('Cache-Control: no-cache, must-revalidate');
+    /*header('Cache-Control: no-cache, must-revalidate');
     header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
     header('Content-type: application/json');
-    echo json_encode ($return);
+    echo json_encode ($return);*/
+    if ($return["code"] != 0) {
+        header ("Location: index.php?error=".str_replace (" ", "+", $return["error"]));
+    } else {
+        header ("Location: index.php?success=".str_replace (" ", "+", $return["Message"]));
+    }
     die();
 }
 

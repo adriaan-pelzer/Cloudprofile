@@ -1,6 +1,7 @@
 <?php
 include 'libs/utils.php';
 
+$base_url = "http://omnii.wewillraakyou.com";
 $return = array();
 
 if (!isset ($_GET['email'])) {
@@ -33,7 +34,7 @@ if ($service->error) {
     $service->secret_entered = TRUE;
 }
 
-$confirmation_url = "http://raak.it/RAAK.id/confirmservice.php?nonce=".md5 ($service->get_name().$service->get_secret());
+$confirmation_url = $base_url."/confirmservice.php?nonce=".md5 ($service->get_name().$service->get_secret());
 $confirmation_url .= "&id=".$service->get_id();
 
 $subject = "New Cloudprofile Service: ".$service->get_name();
