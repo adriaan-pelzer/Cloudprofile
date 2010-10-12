@@ -62,10 +62,17 @@ function check_token ($token, $sid) {
         return ($return);
     }
 
-    if ($token_object->get_sid() != $sid) {
+    /*if ($token_object->get_sid() != $sid) {
         $return["code"] = -2;
         $return["error"] = "This token belongs to a different service ID";
         return ($return);
+    }*/
+    if ($token_object->get_sid() != $sid) {
+        if (!($token_object->set_sid($sid))) {
+            $return["code"] = -2;
+            $return["error"] = "Cannot set token service ID";
+            return ($return);
+        }
     }
 
     $account_object = new Account ($token_object->get_aid());
