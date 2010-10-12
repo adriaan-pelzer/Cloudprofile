@@ -4,7 +4,7 @@ include "header.php";
         <section id="content">
             
             <p>
-                Do what you do best and link to the rest. OMNII aims to do public indentity information only, for others to build upon.
+                OMNII aims to do public identity information only, for others to build upon.
             </p>
             
             <p>
