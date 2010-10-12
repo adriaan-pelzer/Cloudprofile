@@ -9,7 +9,7 @@ function ret_and_exit ($return) {
     if ($return["code"] != 0) {
         header ("Location: index.php?error=".str_replace (" ", "+", $return["error"]));
     } else {
-        header ("Location: index.php?success=".str_replace (" ", "+", $return["Message"]));
+        header ("Location: index.php?success=".str_replace (" ", "+", $return["message"]));
     }
     die();
 }
