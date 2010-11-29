@@ -10,15 +10,21 @@ require_once 'libs/database.class.php';
 class Key extends dbTableEntry {
     var $is = "key";
 
-    function __construct ($id, $key=NULL, $create=FALSE) {
+    function __construct ($id, $key=NULL, $tid=NULL, $description=NULL, $create=FALSE) {
         if ($create) {
             if ($key == NULL) {
                 $this->err ("Please supply a key");
                 return;
             }
-            parent::__construct ($this->get_table_name(), array ('key'=>$key), $create);
+
+            if ($tid == NULL) {
+                $this->err ("Please supply a type id");
+                return;
+            }
+
+            parent::__construct ($this->get_table_name(), array ('key'=>$key, 'tid'=>$tid, 'description'=>$description), $create);
             if ($this->error) {
-                $this->err ("Cannot create key with key '".$key."'");
+                $this->err ("Cannot create key with key '".$key."', tid '".$tid."', description '".$description."'");
                 return;
             }
         } else {
@@ -48,6 +54,18 @@ class Key extends dbTableEntry {
 
     function get_key () {
         return $this->get_entry_value ('key');
+    }
+
+    function get_tid () {
+        return $this->get_entry_value ('tid');
+    }
+
+    function get_description () {
+        return $this->get_entry_value ('description');
+    }
+
+    function set_description ($description) {
+        return $this->get_entry_value ('description', $description);
     }
 }
 ?>
