@@ -11,11 +11,14 @@ class Mysql {
 
     /* Constructor */
     function __construct ($server=DB_HOST, $user=DB_USER, $pass=DB_PASS, $database=DB_BASE) {
-        $this->connection = new mysqli($server, $user, $pass, $database);
+        if (!($this->connection = mysql_connect ($server, $user, $pass))) {
+            $this->error = "Cannot connect to mysql database: ".mysql_error($this->connection);
+            return;
+        }
 
-        if (mysqli_connect_errno()) {
-            $this->error = "Cannot connect to mysql database: ".mysqli_connect_error();
-            exit();
+        if (!mysql_select_db ($database, $this->connection)) {
+            $this->error = "Cannot select mysql database: ".mysql_error($this->connection);
+            return;
         }
     }
 
@@ -24,16 +27,16 @@ class Mysql {
         //echo $query."<br />\n";
         if ($query != NULL) {
             $this->query = $query;
-        } else {
-            $this->error = "Query is empty";
-            return FALSE;
         }
 
-        if (!($this->result = $this->connection->query ($this->query))) {
-            $this->error = "Cannot execute mysql query: ".$this->connection->error;
-            $this->result->close();
+        if (!($this->result = mysql_query ($this->query, $this->connection))) {
+            $this->error = "Cannot execute mysql query: ".mysql_error($this->connection);
             return FALSE;
         } else {
+            if ($this->error = mysql_error($this->connection)) {
+                $this->error = "Cannot execute mysql query: ".$this->error;
+                return FALSE;
+            }
             return $this->result;
         }
     }
@@ -42,7 +45,7 @@ class Mysql {
         $this->result_arr = array();
         $i = 0;
 
-        while ($row = $this->result->fetch_array (MYSQLI_ASSOC)) {
+        while ($row = mysql_fetch_array ($this->result)) {
             $this_entry = array();
 
             foreach ($row as $key=>$value) {
