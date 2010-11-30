@@ -40,7 +40,7 @@ if (!isset ($_GET['service_id'])) {
     $return["session_id"] = $session->get_index();
     $return["challenge"] = $session->get_challenge();
     $service->secret_entered = TRUE;
-    //$return["get_query_to_be_removed"] = "?session_id=".$session->get_index()."&auth_hash=".md5 ($session->get_challenge().$service->get_secret())."&redirect_url=http://omnii.wewillraakyou.com/test.php";
+    $return["get_query_to_be_removed"] = "?session_id=".$session->get_index()."&auth_hash=".md5 ($session->get_challenge().$service->get_secret())."&redirect_url=http://omnii.wewillraakyou.com/test.php";
     ret_and_exit ($return);
 }
 ?>
