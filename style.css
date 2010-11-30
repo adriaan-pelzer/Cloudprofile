@@ -48,7 +48,7 @@ form {
     border-bottom: 1px solid #000000;
 }
 
-#email, #name, #service_id, #service_secret {
+#email, #name, #service_id, #service_secret, #key_name, #key_description {
     display: block;
     margin: 10px auto;
     width: 298px;
@@ -56,6 +56,10 @@ form {
     border: 2px solid #666666;
     color: #666666;
     font-size: 1em;
+}
+
+#key_description {
+    height: 100px;
 }
 
 #button_container {
@@ -72,7 +76,7 @@ form {
     z-index: 0;
 }
 
-#register, #login {
+#register, #login, #addkey {
     position: relative;
     top: -20px;
     width: 298px;
