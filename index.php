@@ -42,7 +42,7 @@ if (isset ($_GET['error'])) {
 } else if (isset ($_POST['login'])) {
     if (!isset ($_POST['service_id'])) {
         $error["service_id"] = "Please enter your service ID";
-    } else if (!isset ($_POST['service_secret')) {
+    } else if (!isset ($_POST['service_secret'])) {
         $error["service_secret"] = "Please enter your secret key";
     } else {
         $return_arr = call_api ("/authorize.php?service_id=".$_POST['service_id']);
