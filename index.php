@@ -1,16 +1,25 @@
 <?php
+require_once 'libs/service.class.php';
+
 function call_api ($url) {
-    $ch = curl_init ($url);
+    $base_url = "http://omnii.wewillraakyou.com";
+    $ch = curl_init ($base_url.$url);
     curl_setopt ($ch, CURLOPT_RETURNTRANSFER, TRUE);
     $data_json = curl_exec ($ch);
     $data = json_decode ($data_json);
     return $data;
 }
 
+session_start ();
+
 $error = array();
 
 if (isset ($_GET['error'])) {
     $error["general"] = $_GET["error"];
+} else if (isset ($_GET['logout'])) {
+    unset ($_SESSION['session_id']);
+    unset ($_SESSION['auth_hash']);
+    session_destroy ();
 } else if (isset ($_GET['success'])) {
     $error["success"] = $_GET["success"];
 } else if (isset ($_POST['register'])) {
@@ -23,13 +32,48 @@ if (isset ($_GET['error'])) {
     }
 
     if (sizeof ($error) == 0) {
-        //echo urlencode("http://omnii.wewillraakyou.com/addservice.php?email=".$_POST['email']."&name=".$_POST['name']);
-        //die();
-        $return_arr = call_api (str_replace (" ", "+", "http://omnii.wewillraakyou.com/addservice.php?email=".$_POST['email']."&name=".$_POST['name']));
+        $return_arr = call_api (str_replace (" ", "+", "/addservice.php?email=".$_POST['email']."&name=".$_POST['name']));
         if ($return_arr->code != 0) {
             $error["general"] = $return_arr->error;
         } else {
             $error["success"] = $return_arr->message;
+        }
+    }
+} else if (isset ($_POST['login'])) {
+    if (!isset ($_POST['service_id'])) {
+        $error["service_id"] = "Please enter your service ID";
+    } else if (!isset ($_POST['service_secret')) {
+        $error["service_secret"] = "Please enter your secret key";
+    } else {
+        $return_arr = call_api ("/authorize.php?service_id=".$_POST['service_id']);
+
+        if ($return_arr->code != 0) {
+            $error["general"] = $return_arr->error;
+        } else {
+            $_SESSION['session_id'] = $return_arr->session_id;
+            $_SESSION['auth_hash'] = md5 ($return_arr->challenge.$_POST['service_secret']);
+        }
+    }
+}
+
+if (isset ($_SESSION['session_id']) && isset ($_SESSION['auth_hash'])) {
+    $session = new Session ($_SESSION['session_id']);
+
+    if ($session->error) {
+        $error["general"] = $session->error;
+    } else {
+        if ((time() - strtotime ($session->get_time ())) > 3600) {
+            unset ($_SESSION['session_id']);
+            unset ($_SESSION['auth_hash']);
+            session_destroy ();
+            header ("Location: http://omnii.wewillraakyou.com/index.php?error=Your+session+has+expired");
+            die();
+        }
+
+        $service = new Service ($_POST['service_id']);
+
+        if ($service->error) {
+            $error['general'] = $service->error;
         }
     }
 }
@@ -43,7 +87,7 @@ include "header.php";
             </p>
             
             <p>
-                OMNII allows you to create a profile for each user, using any existing fields or register new ones you may need. Users can then authenticate & edit their profiles - through you - using Twitter.
+                OMNII allows you to create a profile for each user, using any existing fields or register new ones you may need. Users can then authenticate &amp; edit their profiles - through you - using Twitter.
                 You will be able to read data created by other services too, though.
             </p>
             
@@ -61,32 +105,45 @@ if (isset ($error["success"])) {
             <div class="error"><?php echo $error["general"]; ?></div>
 <?php
     }
+
+    if (isset ($_SESSION['session_id']) && isset ($_SESSION['auth_hash'])) {
+        $service = 
 ?>
-            <form action="index.php" method="post" name="shorten">
-                <input type="text" name="email" placeholder="email address" required id="email" <?if (isset ($_POST['email'])) { echo "value=\"".$_POST['email']."\" "; } ?>/>
+            <p>
+            Welcome, <?php echo $service->get_name(); ?>! <a href="?logout=true">Log Out</a>
+            </p>
 <?php
-    if (isset ($error["email"])) {
+    } else {
 ?>
-                <div class="error"><?php echo $error["email"]; ?></div>
+            <form action="index.php" method="post" name="login">
+                <input type="text" name="service_id" placeholder="Service ID" required id="service_id" <?if (isset ($_POST['service_id'])) { echo "value=\"".$_POST['service_id']."\" "; } ?>/>
+<?php
+    if (isset ($error["service_id"])) {
+?>
+                <div class="error"><?php echo $error["service_id"]; ?></div>
 <?php
     }
 ?>
-                <input type="text" name="name" placeholder="service name"  required id="name" <?if (isset ($_POST['name'])) { echo "value=\"".$_POST['name']."\" "; } ?>/>
+                <input type="password" name="service_secret" placeholder="Secret Key"  required id="service_secret" <?if (isset ($_POST['service_secret'])) { echo "value=\"".$_POST['service_secret']."\" "; } ?>/>
 <?php
-    if (isset ($error["name"])) {
+    if (isset ($error["service_secret"])) {
 ?>
-                <div class="error"><?php echo $error["name"]; ?></div>
+                <div class="error"><?php echo $error["service_secret"]; ?></div>
 <?php
     }
 ?>
                 <span id="button_container">
-                    Register
-                    <input name="register" type="submit" value="Register" id="register" />
+                    Login
+                    <input name="login" type="submit" value="Login" id="login" />
                 </span>
             </form>
 <?php
+    }
 }
 ?>
+            <p>
+                Not registered yet? <a href="register.php">Register Here</a>
+            </p>
         </section>
 <?php
 include "footer.php";
