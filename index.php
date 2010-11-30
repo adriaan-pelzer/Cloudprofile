@@ -85,11 +85,12 @@ if (isset ($_POST['addkey'])) {
     } else {
         $return_arr = call_api ("/addkeys.php?session_id=".$_SESSION['session_id']."&auth_hash=".$_SESSION['auth_hash']."&".$_POST['key_name']."=".$_POST['key_description']);
 
-        print_r ($return_arr);
-        if ($return_arr->code != 0) {
-            $error["general"] = $return_arr->error;
-        } else {
-            $error["success"] = "Your field was requested successfully - you'll be notified when it is approved or rejected";
+        foreach ($return_arr->keys as $key) {
+            if ($key->code != 0) {
+                $error["general"] = $key->error;
+            } else {
+                $error["success"] = "Your field was requested successfully - you'll be notified when it is approved or rejected";
+            }
         }
     }
 }
