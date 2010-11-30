@@ -60,6 +60,10 @@ class Key extends dbTableEntry {
         return $this->get_entry_value ('sid');
     }
 
+    function set_sid ($sid) {
+        return $this->set_entry_value ('sid', $sid);
+    }
+
     function get_key () {
         return $this->get_entry_value ('key');
     }
