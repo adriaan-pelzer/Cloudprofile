@@ -125,7 +125,9 @@ p {
 }
 
 .keys {
+    padding: 2px;
     text-align: left;
+    list-style-type: circle;
 }
 
 .keyname {
