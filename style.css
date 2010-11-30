@@ -123,3 +123,17 @@ p {
     font-size: 0.9em;
     padding: 10px;
 }
+
+.keyname {
+    font-size: 1.1em;
+}
+
+.keystatus {
+    font-style: italic;
+    color: #ff0000;
+}
+
+.keydescription {
+    margin-top: 0;
+    font-size: 0.5em;
+}
