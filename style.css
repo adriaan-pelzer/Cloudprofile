@@ -48,7 +48,7 @@ form {
     border-bottom: 1px solid #000000;
 }
 
-#email, #name {
+#email, #name, #service_id, #service_secret {
     display: block;
     margin: 10px auto;
     width: 298px;
@@ -72,7 +72,7 @@ form {
     z-index: 0;
 }
 
-#register {
+#register, #login {
     position: relative;
     top: -20px;
     width: 298px;
