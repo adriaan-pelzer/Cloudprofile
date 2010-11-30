@@ -1,4 +1,5 @@
 <?php
+require_once 'libs/session.class.php';
 require_once 'libs/service.class.php';
 
 function call_api ($url) {
