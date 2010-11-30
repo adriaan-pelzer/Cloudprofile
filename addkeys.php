@@ -10,20 +10,48 @@ function process_key_value_set ($sid, $aid, $key, $value) {
 
     if ($key_object->error) {
         if (!strncmp ($key_object->error, "Cannot retrieve key", strlen ("Cannot retrieve key"))) {
-            $key_object = new Key (NULL, $key, TRUE);
+            $return["error"] = "key '".$key."' does not exist yet. Please create it using the key creation interface.";
+            $return["code"] = -1;
+            $return["value"] = $value;
+            return ($return);
+            /*$key_object = new Key (NULL, $key, TRUE);
 
             if ($key_object->error) {
                 $return["value"] = $value;
                 $return["code"] = -1;
                 $return["error"] = "Cannot create new key '".$key."': ".$key_object->error;
                 return ($return);
-            }
+            }*/
         } else {
             $return["value"] = $value;
             $return["code"] = -2;
             $return["error"] = "Cannot check if key '".$key."' exists: ".$key_object->error;
             return ($return);
         }
+    }
+
+    /* Check if key have been approved */
+    switch ($key_object->approved) {
+    case 'virgin':
+        $return["error"] = "This key has not been approved yet. Please try again later";
+        $return["code"] = -7;
+        $return["value"] = $value;
+        return ($return);
+        break;
+    case 'rejected':
+        $return["error"] = "This key has been rejected. Please contact us if you want to know why.";
+        $return["code"] = -8;
+        $return["value"] = $value;
+        return ($return);
+        break;
+    case 'approved':
+        break;
+    default:
+        $return["error"] = "Something BIG went wrong - please contact an administrator and say: 'AP5SDX'.";
+        $return["code"] = -9;
+        $return["value"] = $value;
+        return ($return);
+        break;
     }
 
     $value_object = new Value (NULL, $aid, NULL, $key_object->get_id());

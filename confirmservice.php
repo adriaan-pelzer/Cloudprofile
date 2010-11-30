@@ -48,6 +48,18 @@ if (!($service->set_status ("confirmed"))) {
     ret_and_exit ($return);
 }
 
+$subject = "Your OmniI Service, '".$service->get_name()."', have been confirmed";
+$message = "You're ready to use your OmniI service: ".$service->get_name()."\n\n";
+$message .= "These are your service credentials:\n";
+$message .= "Service ID: ".$service->get_id()."\n";
+$message .= "Service Secret: ".$service->get_secret()."\n";
+
+if (!$service->send_email ($subject, $message)) {
+    $return["code"] = -5;
+    $return["error"] = "Cannot send email";
+    ret_and_exit ($return);
+}
+
 $return["code"] = 0;
 $return["message"] = "Service confirmed successfully";
 ret_and_exit ($return);

@@ -10,21 +10,25 @@ require_once 'libs/database.class.php';
 class Key extends dbTableEntry {
     var $is = "key";
 
-    function __construct ($id, $key=NULL, $tid=NULL, $description=NULL, $create=FALSE) {
+    function __construct ($id, $key=NULL, $approved=NULL, $description=NULL, $create=FALSE) {
         if ($create) {
             if ($key == NULL) {
                 $this->err ("Please supply a key");
                 return;
             }
 
-            if ($tid == NULL) {
-                $this->err ("Please supply a type id");
+            if ($approved == NULL) {
+                $approved = 'virgin';
+            }
+
+            if (($approved != 'virgin') && ($approved != 'approved') && ($approved != 'rejected')) {
+                $this->err ("Not a valid value for 'approved'. Choose 'virgin', 'approved', or 'rejected'.");
                 return;
             }
 
-            parent::__construct ($this->get_table_name(), array ('key'=>$key, 'tid'=>$tid, 'description'=>$description), $create);
+            parent::__construct ($this->get_table_name(), array ('key'=>$key, 'approved'=>$approved, 'description'=>$description), $create);
             if ($this->error) {
-                $this->err ("Cannot create key with key '".$key."', tid '".$tid."', description '".$description."'");
+                $this->err ("Cannot create key with key '".$key."', approved '".$approved."', description '".$description."'");
                 return;
             }
         } else {
@@ -56,8 +60,17 @@ class Key extends dbTableEntry {
         return $this->get_entry_value ('key');
     }
 
-    function get_tid () {
-        return $this->get_entry_value ('tid');
+    function get_approved () {
+        return $this->get_entry_value ('approved');
+    }
+
+    function set_approved ($approved) {
+        if (($approved != 'virgin') && ($approved != 'approved') && ($approved != 'rejected')) {
+            $this->err ("Not a valid value for 'approved'. Choose 'virgin', 'approved', or 'rejected'.");
+            return;
+        }
+
+        return $this->set_entry_value ('approved', $approved);
     }
 
     function get_description () {
@@ -65,7 +78,7 @@ class Key extends dbTableEntry {
     }
 
     function set_description ($description) {
-        return $this->get_entry_value ('description', $description);
+        return $this->set_entry_value ('description', $description);
     }
 }
 ?>

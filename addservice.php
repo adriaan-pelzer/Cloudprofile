@@ -37,8 +37,8 @@ if ($service->error) {
 $confirmation_url = $base_url."/confirmservice.php?nonce=".md5 ($service->get_name().$service->get_secret());
 $confirmation_url .= "&id=".$service->get_id();
 
-$subject = "New Cloudprofile Service: ".$service->get_name();
-$message = "You've registered a new Cloudprofile service: ".$service->get_name()."\n\n";
+$subject = "New OmniI Service: ".$service->get_name();
+$message = "You've registered a new OmniI service: ".$service->get_name()."\n\n";
 $message .= "Visit the following url to confirm your registration: ".$confirmation_url."\n\n";
 $message .= "Service ID: ".$service->get_id()."\n";
 $message .= "Service Secret: ".$service->get_secret()."\n";
