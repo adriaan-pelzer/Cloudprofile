@@ -47,7 +47,7 @@ function process_key_value_set ($sid, $aid, $key, $value) {
     case 'approved':
         break;
     default:
-        $return["error"] = "Something BIG went wrong - please contact an administrator and say: 'AP5SDX'.";
+        $return["error"] = "Something BIG went wrong - please contact an administrator and say: 'AP5SDX'.".$key_object->approved;
         $return["code"] = -9;
         $return["value"] = $value;
         return ($return);
