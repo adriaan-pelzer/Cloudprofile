@@ -85,6 +85,7 @@ if (isset ($_POST['addkey'])) {
     } else {
         $return_arr = call_api ("/addkeys.php?session_id=".$_SESSION['session_id']."&auth_hash=".$_SESSION['auth_hash']."&".$_POST['key_name']."=".$_POST['key_description']);
 
+        print_r ($return_arr);
         if ($return_arr->code != 0) {
             $error["general"] = $return_arr->error;
         } else {
