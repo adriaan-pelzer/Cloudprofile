@@ -27,10 +27,8 @@ if (isset ($_GET['error'])) {
         //die();
         $return_arr = call_api (str_replace (" ", "+", "http://omnii.wewillraakyou.com/addservice.php?email=".$_POST['email']."&name=".$_POST['name']));
         if ($return_arr->code != 0) {
-            echo "Error<br />";
             $error["general"] = $return_arr->error;
         } else {
-            echo "Success<br />";
             $error["success"] = $return_arr->message;
         }
     }
