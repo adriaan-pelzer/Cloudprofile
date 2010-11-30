@@ -37,12 +37,12 @@ function process_key_value_set ($sid, $key, $description) {
                         $return["code"] = -1;
                         return ($return);
                     }
-                    if (!($key_object->set_approval ('virgin'))) {
+                    if (!($key_object->set_approved ('virgin'))) {
                         $return["error"] = "Can't reset approval state on key '".$key."': ".$key_object->error;
                         $return["code"] = -1;
                         return ($return);
                     }
-                    if (!($key_object->set_approval ($description))) {
+                    if (!($key_object->set_description ($description))) {
                         $return["error"] = "Can't reset description on key '".$key."': ".$key_object->error;
                         $return["code"] = -1;
                         return ($return);
