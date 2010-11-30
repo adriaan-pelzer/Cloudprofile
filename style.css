@@ -84,6 +84,9 @@ form {
     opacity:0;
     filter:alpha(opacity=0);
     z-index: 1;
+    color: #ffffff;
+    background: #0095c3;
+    border: 0;
 }
 
 #top5 {
