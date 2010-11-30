@@ -107,7 +107,6 @@ if (isset ($error["success"])) {
     }
 
     if (isset ($_SESSION['session_id']) && isset ($_SESSION['auth_hash'])) {
-        $service = 
 ?>
             <p>
             Welcome, <?php echo $service->get_name(); ?>! <a href="?logout=true">Log Out</a>
