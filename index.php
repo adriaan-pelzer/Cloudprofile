@@ -71,7 +71,7 @@ if (isset ($_SESSION['session_id']) && isset ($_SESSION['auth_hash'])) {
             die();
         }
 
-        $service = new Service ($_POST['service_id']);
+        $service = new Service ($session->get_sid());
 
         if ($service->error) {
             $error['general'] = $service->error;
