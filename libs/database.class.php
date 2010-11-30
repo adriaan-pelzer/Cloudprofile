@@ -93,7 +93,7 @@ class dbTable {
         }
 
         if (!($mysql->query ("INSERT INTO `".$this->name."` (".$key_string.") VALUES (".$val_string.")"))) {
-            $this->err ("Cannot insert entry");
+            $this->err ("Cannot insert entry: ".$mysql->error);
             return FALSE;
         } else {
             $id = mysql_insert_id ($mysql->connection);
@@ -110,7 +110,7 @@ class dbTable {
         //echo "SELECT * FROM `".$this->name."` WHERE ".(($where == '1')?"1":$this->build_where($where))."<br />\n";
 
         if (!($mysql->query ("SELECT * FROM `".$this->name."` WHERE ".(($where == '1')?"1":$this->build_where($where))))) {
-            $this->err ("Cannot retrieve entries where ".$where_string." from table '".$this->name."'");
+            $this->err ("Cannot retrieve entries where ".$where_string." from table '".$this->name."': ".$mysql->error);
             return FALSE;
         }
 
@@ -129,7 +129,7 @@ class dbTable {
         global $mysql;
 
         if (!($mysql->query ("UPDATE `".$this->name."` SET ".$this->build_set($set)." WHERE ".$this->build_where($where)))) {
-            $this->err ("Cannot update entry in table '".$this->name."'");
+            $this->err ("Cannot update entry in table '".$this->name."': ".$mysql->error);
             return FALSE;
         }
 
@@ -156,7 +156,7 @@ class dbTable {
         global $mysql;
 
         if (!($mysql->query ("DELETE FROM `".$this->name."` WHERE ".$this->build_where($where)))) {
-            $this->err ("Cannot delete entry from table '".$this->name."'");
+            $this->err ("Cannot delete entry from table '".$this->name."': ".$mysql->error);
             return FALSE;
         }
 
