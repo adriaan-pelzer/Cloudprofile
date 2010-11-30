@@ -112,7 +112,7 @@ if (isset ($error["success"])) {
             <p>
             Welcome, <?php echo $service->get_name(); ?>! <a href="?logout=true">Log Out</a>
             </p>
-            <form action="index.php" method="post" name="addkey">
+            <form action="index.php" method="post" name="add_key">
                 <input type="text" name="key_name" placeholder="New Field Name" required id="key_name" <?if (isset ($_POST['key_name'])) { echo "value=\"".$_POST['key_name']."\" "; } ?>/>
 <?php
     if (isset ($error["key_name"])) {
@@ -129,11 +129,15 @@ if (isset ($error["success"])) {
 <?php
     }
 ?>
+                <span id="button_container">
+                    Request Field
+                    <input name="addkey" type="submit" value="Request Field" id="addkey" />
+                </span>
             </form>
 <?php
     } else {
 ?>
-            <form action="index.php" method="post" name="login">
+            <form action="index.php" method="post" name="log_in">
                 <input type="text" name="service_id" placeholder="Service ID" required id="service_id" <?if (isset ($_POST['service_id'])) { echo "value=\"".$_POST['service_id']."\" "; } ?>/>
 <?php
     if (isset ($error["service_id"])) {
