@@ -75,14 +75,14 @@ function process_key_value_set ($sid, $aid, $key, $value) {
             return ($return);
         }
     } else {
-        if ($value_object->get_sid() != $sid) {
+        /*if ($value_object->get_sid() != $sid) {
             $return["kid"] = $key_object->get_id();
             $return["vid"] = $value_object->get_id();
             $return["value"] = $value_object->get_value();
             $return["code"] = -5;
             $return["error"] = "This value is not writeable by service ID ".$sid;
             return ($return);
-        }
+        }*/
 
         if (!($value_object->set_value ($value))) {
             $return["kid"] = $key_object->get_id();
