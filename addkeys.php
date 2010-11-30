@@ -8,9 +8,54 @@ function process_key_value_set ($sid, $key, $description) {
     $key_object = new Key (NULL, $sid, $key, 'virgin', $description, TRUE);
 
     if ($key_object->error) {
-        $return["error"] = "Cannot create new key '".$key."': ".$key_object->error;
-        $return["code"] = -1;
-        return ($return);
+        if (strpos ($key_object->error, "Duplicate entry") === false) {
+            $return["error"] = "Cannot create new key '".$key."': ".$key_object->error;
+            $return["code"] = -1;
+            return ($return);
+        } else {
+            $key_object = new Key (NULL, NULL, $key);
+
+            if ($key_object->error) {
+                $return["error"] = "Cannot retrieve key '".$key."': ".$key_object->error;
+                $return["code"] = -1;
+                return ($return);
+            } else {
+                switch ($key_object->get_approved()) {
+                case 'virgin':
+                    $return["error"] = "Key '".$key."' has already been created, and approval is pending";
+                    $return["code"] = -1;
+                    return ($return);
+                    break;
+                case 'approved':
+                    $return["error"] = "Key '".$key."' has already been created and approved";
+                    $return["code"] = -1;
+                    return ($return);
+                    break;
+                case 'rejected':
+                    if (!($key_object->set_sid ($sid))) {
+                        $return["error"] = "Can't reset sid on key '".$key."': ".$key_object->error;
+                        $return["code"] = -1;
+                        return ($return);
+                    }
+                    if (!($key_object->set_approval ('virgin'))) {
+                        $return["error"] = "Can't reset approval state on key '".$key."': ".$key_object->error;
+                        $return["code"] = -1;
+                        return ($return);
+                    }
+                    if (!($key_object->set_approval ($description))) {
+                        $return["error"] = "Can't reset description on key '".$key."': ".$key_object->error;
+                        $return["code"] = -1;
+                        return ($return);
+                    }
+                    break;
+                default:
+                    $return["error"] = "Something BIG went wrong - please contact an administrator and say: 'AP5SDX'.".$key_object->approved;
+                    $return["code"] = -9;
+                    return ($return);
+                    break;
+                }
+            }
+        }
     }
 
     $return["code"] = 0;
