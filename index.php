@@ -151,6 +151,30 @@ if (isset ($error["success"])) {
                 </span>
             </form>
 <?php
+        $key_table = new dbTable ('keys');
+        
+        if ($key_table->error) {
+            $error["keys"] = $key_table->error;
+        } else if (!($keys = $key_table->retrieve (1))) {
+            $error["keys"] = $key_table->error;
+        }
+
+        if (isset ($error["keys"])) {
+?>
+                <div class="error"><?php echo $error["keys"]; ?></div>
+<?php
+        } else {
+            foreach ($keys as $key) {
+?>
+    <p><span class="keyname"><?php echo $key['name']; ?></span> : <span class="keystatus"><?php echo $key['approved']; ?></span></p>
+<?php
+                if (isset ($key['description'])) {
+?>
+                <p class="keydescription"><?php echo $key['description']; ?></p>
+<?php
+                }
+            }
+        }
     } else {
 ?>
             <form action="index.php" method="post" name="log_in">
