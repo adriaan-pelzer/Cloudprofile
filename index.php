@@ -79,6 +79,20 @@ if (isset ($_SESSION['session_id']) && isset ($_SESSION['auth_hash'])) {
     }
 }
 
+if (isset ($_POST['addkey'])) {
+    if (!(isset ($_POST['key_name']))) {
+        $error['key_name'] = "Please enter a field name";
+    } else {
+        $return_arr = call_api ("/addkeys.php?session_id=".$_SESSION['session_id']."&auth_hash=".$_SESSION['auth_hash']."&".$_POST['key_name']."=".$_POST['key_description']);
+
+        if ($return_arr->code != 0) {
+            $error["general"] = $return_arr->error;
+        } else {
+            $error["success"] = "Your field was requested successfully - you'll be notified when it is approved or rejected";
+        }
+    }
+}
+
 include "header.php";
 ?>
         <section id="content">
