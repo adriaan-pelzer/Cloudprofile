@@ -124,6 +124,10 @@ p {
     padding: 10px;
 }
 
+.keys {
+    text-align: left;
+}
+
 .keyname {
     font-size: 1.1em;
 }

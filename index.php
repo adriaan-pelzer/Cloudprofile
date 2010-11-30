@@ -166,11 +166,11 @@ if (isset ($error["success"])) {
         } else {
             foreach ($keys as $key) {
 ?>
-    <p><span class="keyname"><?php echo $key['key']; ?></span> : <span class="keystatus"><?php echo $key['approved']; ?></span></p>
+    <p class="keys"><span class="keyname"><?php echo $key['key']; ?></span> : <span class="keystatus"><?php echo $key['approved']; ?></span></p>
 <?php
                 if (isset ($key['description'])) {
 ?>
-                <p class="keydescription"><?php echo $key['description']; ?></p>
+                <p class="keys keydescription"><?php echo $key['description']; ?></p>
 <?php
                 }
             }
