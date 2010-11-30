@@ -31,7 +31,7 @@ function process_key_value_set ($sid, $aid, $key, $value) {
     }
 
     /* Check if key have been approved */
-    switch ($key_object->approved) {
+    switch ($key_object->get_approved ()) {
     case 'virgin':
         $return["error"] = "This key has not been approved yet. Please try again later";
         $return["code"] = -7;
