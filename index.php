@@ -137,13 +137,13 @@ if (isset ($error["success"])) {
                     <input name="login" type="submit" value="Login" id="login" />
                 </span>
             </form>
+            <p>
+                Not registered yet? <a href="register.php">Register Here</a>
+            </p>
 <?php
     }
 }
 ?>
-            <p>
-                Not registered yet? <a href="register.php">Register Here</a>
-            </p>
         </section>
 <?php
 include "footer.php";
