@@ -112,6 +112,24 @@ if (isset ($error["success"])) {
             <p>
             Welcome, <?php echo $service->get_name(); ?>! <a href="?logout=true">Log Out</a>
             </p>
+            <form action="index.php" method="post" name="addkey">
+                <input type="text" name="key_name" placeholder="New Field Name" required id="key_name" <?if (isset ($_POST['key_name'])) { echo "value=\"".$_POST['key_name']."\" "; } ?>/>
+<?php
+    if (isset ($error["key_name"])) {
+?>
+                <div class="error"><?php echo $error["key_name"]; ?></div>
+<?php
+    }
+?>
+                <textarea name="key_description" placeholder="Tell us a bit more ..." required id="key_description"><?if (isset ($_POST['key_description'])) { echo $_POST['key_description']; } ?></textarea>
+<?php
+    if (isset ($error["key_description"])) {
+?>
+                <div class="error"><?php echo $error["key_description"]; ?></div>
+<?php
+    }
+?>
+            </form>
 <?php
     } else {
 ?>
