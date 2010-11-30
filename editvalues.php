@@ -6,7 +6,7 @@ include 'libs/value.class.php';
 function process_key_value_set ($sid, $aid, $key, $value) {
     $return = array();
 
-    $key_object = new Key (NULL, $key);
+    $key_object = new Key (NULL, NULL, $key);
 
     if ($key_object->error) {
         if (!strncmp ($key_object->error, "Cannot retrieve key", strlen ("Cannot retrieve key"))) {
