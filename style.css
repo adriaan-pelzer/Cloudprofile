@@ -66,14 +66,17 @@ form {
     position: relative;
     width: 298px;
     height: 19px;
-    border: 2px solid #666666;
+    /*border: 2px solid #666666;*/
     font-size: 1em;
     display: block;
     text-align: center; 
     margin: 10px auto;
-    color: #666666;
+    /*color: #666666;*/
     padding: 3px 0;
     z-index: 0;
+    color: #ffffff;
+    background: #0095c3;
+    border: 0;
 }
 
 #register, #login, #addkey {
@@ -84,9 +87,6 @@ form {
     opacity:0;
     filter:alpha(opacity=0);
     z-index: 1;
-    color: #ffffff;
-    background: #0095c3;
-    border: 0;
 }
 
 #top5 {
