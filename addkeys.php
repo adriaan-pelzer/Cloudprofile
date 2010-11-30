@@ -92,6 +92,15 @@ function process_key_value_set ($sid, $aid, $key, $value) {
             $return["error"] = "Cannot update value '".$value."': ".$value_object->error;
             return ($return);
         }
+
+        if (!($value_object->set_sid ($sid))) {
+            $return["kid"] = $key_object->get_id();
+            $return["vid"] = $value_object->get_id();
+            $return["value"] = $value_object->get_value();
+            $return["code"] = -5;
+            $return["error"] = "Cannot update sid '".$sid."': ".$value_object->error;
+            return ($return);
+        }
     }
 
     $return["value"] = $value;
